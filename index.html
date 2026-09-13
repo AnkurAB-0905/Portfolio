@@ -385,6 +385,97 @@
   }
   footer .wrap{display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;}
 
+  /* ---------- word jumble game ---------- */
+  .jumble{border-top:1px solid var(--line); background:var(--paper-off); transition:background-color .3s ease, border-color .3s ease;}
+  .jumble .wrap{padding-top:88px; padding-bottom:88px; text-align:center;}
+  .jumble-kicker{
+    font-family:'Space Grotesk'; font-weight:600; font-size:0.85rem;
+    text-transform:uppercase; letter-spacing:0.06em; color:var(--red);
+    margin-bottom:10px;
+  }
+  .jumble h2{font-size:clamp(1.6rem,3vw,2.1rem); font-weight:700; margin-bottom:10px;}
+  .jumble-sub{color:var(--text-2); font-size:0.98rem; margin-bottom:36px;}
+  .jumble-card{
+    max-width:480px; margin:0 auto;
+    background:var(--paper); border:1px solid var(--line); border-radius:16px;
+    padding:40px 32px;
+    transition:background-color .3s ease, border-color .3s ease;
+  }
+  .jumble-letters{
+    display:flex; justify-content:center; gap:8px; flex-wrap:wrap;
+    margin-bottom:28px;
+  }
+  .jumble-letter{
+    width:40px; height:44px; border-radius:8px;
+    background:var(--ink); color:var(--paper);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Space Grotesk'; font-weight:700; font-size:1.15rem;
+    text-transform:uppercase;
+    animation:letter-pop .4s ease backwards;
+  }
+  @keyframes letter-pop{
+    from{opacity:0; transform:translateY(8px) scale(0.85);}
+    to{opacity:1; transform:translateY(0) scale(1);}
+  }
+  .jumble-form{display:flex; gap:10px; justify-content:center; flex-wrap:wrap;}
+  .jumble-input{
+    font-family:'Space Grotesk'; font-size:1rem;
+    padding:12px 16px; border-radius:8px; border:1.5px solid var(--line);
+    background:var(--paper); color:var(--ink);
+    width:200px; max-width:60vw; text-align:center;
+    text-transform:uppercase; letter-spacing:0.04em;
+    transition:border-color .15s ease, background-color .3s ease, color .3s ease;
+  }
+  .jumble-input:focus{outline:none; border-color:var(--ink);}
+  .jumble-input.shake{animation:jumble-shake .4s ease;}
+  @keyframes jumble-shake{
+    20%{transform:translateX(-6px);} 40%{transform:translateX(6px);}
+    60%{transform:translateX(-4px);} 80%{transform:translateX(4px);} 100%{transform:translateX(0);}
+  }
+  .jumble-check{
+    font-family:'Space Grotesk'; font-weight:600; font-size:0.95rem;
+    padding:12px 22px; border-radius:8px; border:1.5px solid var(--ink);
+    background:var(--ink); color:var(--paper); cursor:pointer;
+    transition:transform 0.15s ease, background-color .3s ease, border-color .3s ease;
+  }
+  .jumble-check:hover{transform:translateY(-2px);}
+  .jumble-feedback{
+    margin-top:16px; font-size:0.88rem; font-weight:600; min-height:20px;
+    color:var(--red);
+  }
+  .jumble-hint-btn{
+    margin-top:18px; background:none; border:none; cursor:pointer;
+    font-family:'Space Grotesk'; font-size:0.82rem; color:var(--text-4);
+    text-decoration:underline; text-underline-offset:3px;
+  }
+  .jumble-success{display:none; flex-direction:column; align-items:center;}
+  .jumble-success.show{display:flex;}
+  .jumble-hand{
+    font-size:4.5rem; line-height:1;
+    animation:hand-wave 1.1s ease-in-out infinite;
+    margin-bottom:14px;
+  }
+  @keyframes hand-wave{
+    0%,100%{transform:rotate(0deg) scale(1);}
+    20%{transform:rotate(-14deg) scale(1.08);}
+    40%{transform:rotate(10deg) scale(1.08);}
+    60%{transform:rotate(-8deg) scale(1.05);}
+    80%{transform:rotate(6deg) scale(1.02);}
+  }
+  .jumble-success h3{font-size:1.4rem; font-weight:700; margin-bottom:8px;}
+  .jumble-success p{color:var(--text-2); font-size:0.95rem;}
+  .jumble-replay{
+    margin-top:20px; font-family:'Space Grotesk'; font-weight:600; font-size:0.9rem;
+    background:none; border:1.5px solid var(--ink); color:var(--ink);
+    padding:10px 20px; border-radius:8px; cursor:pointer;
+    transition:background-color .15s ease, color .15s ease;
+  }
+  .jumble-replay:hover{background:var(--ink); color:var(--paper);}
+  @media (max-width:480px){
+    .jumble-letter{width:32px; height:38px; font-size:1rem;}
+    .jumble-card{padding:32px 20px;}
+  }
+
   /* ---------- kudos ---------- */
   .kudos{border-top:1px solid var(--line); transition:border-color .3s ease;}
   .kudos-grid{
@@ -496,42 +587,6 @@
     .doc-icon::after{display:none;}
   }
 
-  /* ---------- ticker ---------- */
-  .ticker{
-    background:var(--ink);
-    overflow:hidden;
-    white-space:nowrap;
-    border-bottom:1px solid var(--line);
-    transition:background-color .3s ease, border-color .3s ease;
-  }
-  .ticker-track{
-    display:inline-flex;
-    width:max-content;
-    animation:ticker-scroll 26s linear infinite;
-  }
-  .ticker-track span{
-    display:inline-flex;
-    align-items:center;
-    font-family:'Space Grotesk', sans-serif;
-    font-weight:500;
-    font-size:0.72rem;
-    letter-spacing:0.03em;
-    color:var(--paper);
-    padding:7px 0;
-  }
-  .ticker-track span::after{
-    content:"—";
-    color:var(--yellow);
-    margin:0 20px;
-  }
-  @media (prefers-reduced-motion: reduce){
-    .ticker-track{animation:none;}
-  }
-  @keyframes ticker-scroll{
-    from{transform:translateX(0);}
-    to{transform:translateX(-50%);}
-  }
-
   /* ---------- lightbox ---------- */
   .lightbox{
     position:fixed; inset:0; z-index:200;
@@ -616,19 +671,6 @@
     </div>
   </nav>
 </header>
-
-<div class="ticker" role="marquee" aria-hidden="true">
-  <div class="ticker-track" id="tickerTrack">
-    <span>All em dashes are strategically placed</span>
-    <span>No help of AI has been taken</span>
-    <span>All em dashes are strategically placed</span>
-    <span>No help of AI has been taken</span>
-    <span>All em dashes are strategically placed</span>
-    <span>No help of AI has been taken</span>
-    <span>All em dashes are strategically placed</span>
-    <span>No help of AI has been taken</span>
-  </div>
-</div>
 
 <script>
   const navToggle = document.getElementById('navToggle');
@@ -1049,6 +1091,33 @@
   </div>
 </section>
 
+<section class="jumble" id="jumble">
+  <div class="wrap">
+    <div class="jumble-kicker">One more thing</div>
+    <h2>Think you can unscramble this?</h2>
+    <p class="jumble-sub">One word. No pressure. Solve it for a high five.</p>
+
+    <div class="jumble-card">
+      <div id="jumbleGame">
+        <div class="jumble-letters" id="jumbleLetters"></div>
+        <div class="jumble-form">
+          <input type="text" class="jumble-input" id="jumbleInput" placeholder="Your guess" autocomplete="off" autocapitalize="off" spellcheck="false" maxlength="12">
+          <button class="jumble-check" id="jumbleCheck">Check</button>
+        </div>
+        <div class="jumble-feedback" id="jumbleFeedback"></div>
+        <button class="jumble-hint-btn" id="jumbleHint">Need a hint?</button>
+      </div>
+
+      <div class="jumble-success" id="jumbleSuccess">
+        <div class="jumble-hand">🖐️</div>
+        <h3>High five! You got it.</h3>
+        <p>Nice one.</p>
+        <button class="jumble-replay" id="jumbleReplay">Play again</button>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="contact" id="contact">
   <div class="contact-shape2"></div>
   <div class="contact-shape"></div>
@@ -1263,6 +1332,90 @@
     });
   }, { threshold: 0.25 });
   cards.forEach(c => observer.observe(c));
+})();
+
+// Word jumble game
+(function(){
+  const WORDS = ['PUZZLE', 'GALAXY', 'WIZARD', 'SPARKLE', 'PICKLE'];
+  let currentWord = '';
+
+  const lettersEl = document.getElementById('jumbleLetters');
+  const inputEl = document.getElementById('jumbleInput');
+  const checkBtn = document.getElementById('jumbleCheck');
+  const feedbackEl = document.getElementById('jumbleFeedback');
+  const hintBtn = document.getElementById('jumbleHint');
+  const gameEl = document.getElementById('jumbleGame');
+  const successEl = document.getElementById('jumbleSuccess');
+  const replayBtn = document.getElementById('jumbleReplay');
+
+  if (!lettersEl) return;
+
+  function shuffle(word){
+    let arr = word.split('');
+    let scrambled = word;
+    let attempts = 0;
+    while (scrambled === word && attempts < 20){
+      for (let i = arr.length - 1; i > 0; i--){
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      scrambled = arr.join('');
+      attempts++;
+    }
+    return scrambled;
+  }
+
+  function renderWord(){
+    currentWord = WORDS[Math.floor(Math.random() * WORDS.length)];
+    const scrambled = shuffle(currentWord);
+    lettersEl.innerHTML = '';
+    scrambled.split('').forEach((ch, i) => {
+      const tile = document.createElement('div');
+      tile.className = 'jumble-letter';
+      tile.style.animationDelay = (i * 0.05) + 's';
+      tile.textContent = ch;
+      lettersEl.appendChild(tile);
+    });
+    inputEl.value = '';
+    feedbackEl.textContent = '';
+    inputEl.focus();
+  }
+
+  function checkAnswer(){
+    const guess = inputEl.value.trim().toUpperCase();
+    if (!guess) return;
+    if (guess === currentWord){
+      feedbackEl.style.color = 'var(--red)';
+      feedbackEl.textContent = 'Got it!';
+      setTimeout(() => {
+        gameEl.style.display = 'none';
+        successEl.classList.add('show');
+      }, 500);
+    } else {
+      feedbackEl.textContent = 'Not quite — try again.';
+      inputEl.classList.remove('shake');
+      void inputEl.offsetWidth;
+      inputEl.classList.add('shake');
+    }
+  }
+
+  function startGame(){
+    gameEl.style.display = 'block';
+    successEl.classList.remove('show');
+    renderWord();
+  }
+
+  checkBtn.addEventListener('click', checkAnswer);
+  inputEl.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') checkAnswer();
+  });
+  hintBtn.addEventListener('click', () => {
+    feedbackEl.style.color = 'var(--text-4)';
+    feedbackEl.textContent = `Hint: starts with "${currentWord[0]}", ${currentWord.length} letters.`;
+  });
+  replayBtn.addEventListener('click', startGame);
+
+  startGame();
 })();
 </script>
 </body>
